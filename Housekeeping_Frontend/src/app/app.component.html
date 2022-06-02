@@ -1,0 +1,27 @@
+<div class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+   <div class="navbar-header">
+      <a routerLink="/home">
+         <img src="../assets/home_icon.png" style="width: 50px; height: 50px" />
+      </a>
+   </div>
+   <ul class="navbar-nav" style="font-weight: 50px">
+      <li class="nav-item"><a class="nav-link text-light p-3" routerLink="/adminlogin">Admin</a></li>
+      <li class="nav-item"><a class="nav-link text-light p-3" routerLink="/customers"></a></li>
+      <li class="nav-item"><a class="nav-link text-light p-3" routerLink="/managers"></a></li>
+      <li class="nav-item"><a class="nav-link text-light p-3" routerLink="/engineers"></a></li>
+   </ul>
+   <ul class="navbar-nav ml-auto" style="font-weight: 50px">
+      <li class="nav-item"><a class="nav-link text-light p-3" routerLink="aboutus"></a></li>
+      <li class="nav-item"><a class="nav-link text-light p-3" routerLink="contact"></a></li>
+   </ul>
+</div>
+<br /><br /><br /><br /><br /><br />
+<div><router-outlet></router-outlet></div>
+
+<br /><br /><br />
+<footer class="page-footer fixed-bottom mt-3" style="background-color: rgb(52, 58, 64)">
+   <div class="footer-copyright text-center py-3 text-light">
+      © 2022 Copyright : 218 VB.
+      
+   </div>
+</footer>

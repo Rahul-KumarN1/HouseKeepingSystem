@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <title>HouseKeeping</title>
+</head>
+
+<body>
+  <!-- the sepration of pages -->
+
+  <div class="wrapper">
+
+  <div class="sidebar">
+        <h2>HouseKeeping</h2>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i>Dashboard</a></li>
+               <li ><a class="fas fa-user" routerLink="/customers">Request</a></li>
+            <li ><a class="fas fa-user" routerLink="/housekeeper">housekeeper</a></li>
+  
+            <li ><a class="fas fa-user" routerLink="/managers">Feedback</a></li>
+                   
+            <li ><a class="fas fa-user" routerLink="/rooms">Roooms</a></li>
+
+            
+            <li ><a class="fas fa-user" routerLink="/aboutus">about</a></li>
+            <li ><a class="fas fa-user" routerLink="/contact">Contact</a></li>
+        </ul> 
+        <div class="social_media">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="social_media">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+
+    <div class="main_content" style="text-align: center;font-size: 20px;">
+        <div class="header">Good Housekeeping Promotes Safety</div>  
+        <div class="info">
+          
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+     
+
+      <div class="col col-lg-2">
+        
+      </div>
+    </div>
+   
+  </div>
+
+
+
+
+<div class="name clearfix" style="background-color: rgba(0, 0, 0, 0.2)">
+   <h1 style="font-style: italic; padding-left: 100px; margin-top: auto; float: right">ADMIN</h1>
+   <button (click)="logout()" class="btn btn-danger btn-lg" style="float: right; margin-right: 50px">LOGOUT</button>
+</div>
+<div class="row" style="justify-content: center;float:right;margin-left:20%">
+   <div style="padding: 1rem">
+      <button type="submit" class="btn btn-info btn-lg" style="font-size: x-large; border-radius: 5px" (click)="viewManagers()">avaliable housekeeper</button>
+   </div>
+   <div style="padding: 1rem">
+      <button type="submit" class="btn btn-info btn-lg" style="font-size: x-large; border-radius: 5px" (click)="viewCustomers()">View Users/customers</button>
+   </div>
+   <div style="padding: 1rem">
+      <button type="submit" class="btn btn-info btn-lg" style="font-size: x-large; border-radius: 5px" (click)="viewComplaints()">View USER REQUEST</button>
+   </div>
+   <div style="padding: 1rem">
+      <button type="submit" class="btn btn-info btn-lg" style="font-size: x-large; border-radius: 5px" (click)="viewFeedbacks()">View Feedbacks</button>
+   </div>
+   
+</div>
+
+<!-- ------------------------------------Managers------------------------------------ -->
+<!-- view Managers -->
+<div *ngIf="viewManagersStatus" class="container" style="width: 70%">
+   <br /><br /><br />
+   <div class="col-lg-7">
+      <h1>USER</h1>
+   </div>
+
+   <table class="table table-bordered table-stripped table-hover table-secondary">
+      <thead class="thead-dark">
+         <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Pincode</th>
+            <th scope="col" colspan="2">ACTIONS</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let manager of managers">
+            <td scope="row">{{ manager.managerEmail }}</td>
+            <td>{{ manager.managerName }}</td>
+            <td>{{ manager.managerPincode }}</td>
+            <td><button (click)="deleteManager(manager)" class="btn btn-danger btn-lg">Delete</button></td>
+            <td><button (click)="updateManager(manager)" class="btn btn-primary btn-lg">Update</button></td>
+         </tr>
+         <tr *ngIf="updateManagerStatus">
+            <td colspan="5">
+               <form (ngSubmit)="newManagerUpdates()">
+                  <h2>UPDATE MANAGER PINCODE</h2>
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="managerPincode" [(ngModel)]="managerUpdating.managerPincode" placeholder="Enter new pincode" />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg">Update</button>
+               </form>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+<!-- ------------------------------------Engineers------------------------------------ -->
+<!-- View Engineers -->
+<div *ngIf="viewEngineersStatus" class="container" style="width: 70%">
+
+   <br /><br /><br />
+   <div class="col-lg-7">
+      <h1>avaliable housekeeper</h1>
+   </div>
+   <table class="table table-bordered table-stripped table-hover table-secondary">
+      <thead class="thead-dark">
+         <tr>
+            <th scope="col">Engineer Email</th>
+            <th scope="col">Manager Name</th>
+            <th scope="col" colspan="2">ACTIONS</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let engineer of engineers">
+            <td scope="row">{{ engineer.engineerEmail }}</td>
+            <td>{{ engineer.engineerName }}</td>
+
+            <td><button (click)="deleteEngineer(engineer)" class="btn btn-danger btn-lg">Delete</button></td>
+            <td><button (click)="updateEngineer(engineer)" class="btn btn-primary btn-lg">Update</button></td>
+         </tr>
+         <tr *ngIf="updateEngineerStatus">
+            <td colspan="5">
+               <form (ngSubmit)="newEngineerUpdates()">
+                  <h2>UPDATE ENGINEER NAME</h2>
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="engineerName" [(ngModel)]="engineerUpdating.engineerName" placeholder="Enter new Name" />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                  
+               </form>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+
+
+<!-- ------------------------------------Customers------------------------------------ -->
+<!-- View Customers -->
+<div *ngIf="viewCustomersStatus" class="container" style="width: 70%">
+   <br /><br /><br />
+   <div class="col-lg-7">
+      <h1>CUSTOMERS</h1>
+   </div>
+   <table class="table table-bordered table-stripped table-hover table-secondary">
+      <thead class="thead-dark">
+         <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Address</th>
+            <th scope="col">Pincode</th>
+            <th scope="col" colspan="2">ACTIONS</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let customer of customers">
+            <td scope="row">{{ customer.customerEmail }}</td>
+            <td>{{ customer.customerName }}</td>
+            <td>{{ customer.customerMobile }}</td>
+            <td>{{ customer.customerAddress }}</td>
+            <td>{{ customer.customerPincode }}</td>
+
+            <td><button (click)="deleteCustomer(customer)" class="btn btn-danger btn-lg">Delete</button></td>
+            <td><button (click)="updateCustomer(customer)" class="btn btn-primary btn-lg">Update</button></td>
+         </tr>
+         <tr *ngIf="updateCustomerStatus">
+            <td colspan="7">
+               <form (ngSubmit)="newCustomerUpdates()">
+                  <h2>UPDATE CUSTOMER PINCODE</h2>
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="customerPincode" [(ngModel)]="customerUpdating.customerPincode" placeholder="Enter new pincode" />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+               </form>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+<!-- ------------------------------------Complaints------------------------------------ -->
+<!-- View Complaints -->
+<div *ngIf="viewComplaintsStatus" class="container" style="width: 70%">
+   <br /><br /><br />
+   <div class="col-lg-7">
+      <h1>Users/customers</h1>
+   </div>
+   <table class="table table-bordered table-stripped table-hover table-secondary" >
+      <thead class="thead-dark">
+         <tr>
+            <th scope="col">Ticket Id</th>
+            <th scope="col">Customer Email</th>
+            <th scope="col">Complaint</th>
+            <th scope="col">Pincode</th>
+            <th scope="col">status</th>
+            <th scope="col" colspan="2">ACTIONS</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let complaint of complaints">
+            <td scope="row">{{ complaint.ticketId }}</td>
+            <td>{{ complaint.customerEmail }}</td>
+            <td>{{ complaint.complaint }}</td>
+            <td>{{ complaint.pincode }}</td>
+            <td>{{ complaint.status }}</td>
+            <td><button (click)="deleteComplaint(complaint)" class="btn btn-danger btn-lg">Delete</button></td>
+
+            <td><button (click)="updateComplaint(complaint)" class="btn btn-primary btn-lg">Update</button></td>
+         </tr>
+         <tr *ngIf="updateComplaintStatus">
+            <td colspan="7">
+               <form (ngSubmit)="newComplaintUpdates()">
+                  <h2>UPDATE COMPLAINT PINCODE</h2>
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="customerEmail" [(ngModel)]="complaintUpdating.customerEmail" placeholder="Enter email" />
+                  </div>
+
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="pincode" [(ngModel)]="complaintUpdating.pincode" placeholder="Enter pincode" />
+                  </div>
+
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="complaint" [(ngModel)]="complaintUpdating.complaint" placeholder="Enter complaint" />
+                  </div>
+
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="status" [(ngModel)]="complaintUpdating.status" placeholder="Enter status" />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                  
+               </form>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+<!-- ------------------------------------Feedbacks------------------------------------ -->
+<!-- view Feedbacks -->
+<div *ngIf="viewFeedbacksStatus" class="container" style="width: 70%">
+   <br /><br /><br />
+   <div class="col-lg-7">
+      <h1>FEEDBACKS</h1>
+   </div>
+   <table class="table table-bordered table-stripped table-hover table-secondary">
+      <thead class="thead-dark">
+         <tr>
+            <th style="padding-right: 5px">Feedback Id</th>
+            <th style="padding-right: 5px">Ticket Id</th>
+            <th style="padding-right: 5px">Customer Email</th>
+            <th style="padding-right: 5px">Feedback</th>
+            <th scope="col" colspan="2">ACTIONS</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let feedback of feedbacks">
+            <td style="padding-right: 5px" scope="row">{{ feedback.feedbackId }}</td>
+            <td style="padding-right: 5px">{{ feedback.ticketId }}</td>
+            <td style="padding-right: 5px">{{ feedback.customerEmail }}</td>
+            <td style="padding-right: 5px">{{ feedback.feedback }}</td>
+
+            <td><button (click)="deleteFeedback(feedback)" class="btn btn-danger btn-lg">Delete</button></td>
+            <td><button (click)="updateFeedback(feedback)" class="btn btn-primary btn-lg">Update</button></td>
+         </tr>
+         <tr *ngIf="updateFeedbackStatus">
+            <td colspan="6">
+               <h2>UPDATE FEEDBACK</h2>
+               <form (ngSubmit)="newFeedbackUpdates()">
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="ticketId" [(ngModel)]="feedbackUpdating.ticketId" placeholder="Enter ticked Id" />
+                  </div>
+
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="customerEmail" [(ngModel)]="feedbackUpdating.customerEmail" placeholder="Enter email" />
+                  </div>
+
+                  <div class="form-group">
+                     <input type="text" style="width: 30%" class="form-control" name="feedback" [(ngModel)]="feedbackUpdating.feedback" placeholder="Enter feedback" />
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+               </form>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>
+<br /><br /><br />
+
+
+
+
+ 
+ 
+
+
+
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

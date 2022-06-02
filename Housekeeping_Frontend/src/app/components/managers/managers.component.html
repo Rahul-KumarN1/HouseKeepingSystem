@@ -1,0 +1,186 @@
+
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <title>HouseKeeping</title>
+</head>
+
+<body>
+  <!-- the sepration of pages -->
+
+  <div class="wrapper">
+
+  <div class="sidebar">
+        <h2>HouseKeeping</h2>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i>Dashboard</a></li>
+               <li ><a class="fas fa-user" routerLink="/customers">Request</a></li>
+            <li ><a class="fas fa-user" routerLink="/housekeeper">housekeeper</a></li>
+  
+            <li ><a class="fas fa-user" routerLink="/managers">Feedback</a></li>
+                   
+            <li ><a class="fas fa-user" routerLink="/rooms">Roooms</a></li>
+
+            
+            <li ><a class="fas fa-user" routerLink="/aboutus">about</a></li>
+            <li ><a class="fas fa-user" routerLink="/contact">Contact</a></li>
+        </ul> 
+        <div class="social_media">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="social_media">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+
+    <div class="main_content" style="text-align: center;font-size: 20px;">
+        <div class="header">Good Housekeeping Promotes Safety</div>  
+        <div class="info">
+          
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+     
+
+      <div class="col col-lg-2">
+        
+      </div>
+    </div>
+   
+  </div>
+
+
+
+
+
+
+
+
+
+<div class="row" style="justify-content: center; width: 100%">
+
+</div>
+
+<div class="name clearfix" style="background-color: rgba(0, 0, 0, 0.2)">
+   <h1 style="font-style: italic; padding-left: 100px; margin-top: auto; float: left">User</h1>
+   <button *ngIf="managerloginStatus" (click)="logout()" class="btn btn-danger btn-lg" style="float: right; margin-right: 50px">LOGOUT</button>
+</div>
+<div *ngIf="viewPage" class="container clearfix">
+   <br />
+   <div class="container" style="width: 50%; float:center">
+      <h1 style="text-align: center;margin-left: -300px">REGISTER</h1>
+      <br />
+      <form (ngSubmit)="registerManager(id)" #id="ngForm">
+         <div class="form-group">
+            <label>EMAIL <span>*</span></label>
+            <input type="text" class="form-control" name="managerEmail" [(ngModel)]="manager.managerEmail" placeholder="Enter email" required email #email="ngModel" />
+            <span class="help-block" *ngIf="!email.valid && email.touched">Please Enter Valid Email</span>
+         </div>
+
+         <div class="form-group">
+            <label>PASSWORD <span>*</span></label>
+            <input type="password" class="form-control" name="managerPassword" [(ngModel)]="manager.managerPassword" placeholder="Enter password" required minlength="5" #pass="ngModel" />
+            <span class="help-block" *ngIf="!pass.valid && pass.touched">Minimum Length Should Be 5</span>
+         </div>
+
+         <div class="form-group">
+            <label>NAME <span>*</span></label>
+            <input type="text" class="form-control" name="managerName" [(ngModel)]="manager.managerName" placeholder="Enter name" required #name="ngModel" />
+            <span class="help-block" *ngIf="!name.valid && name.touched">Please Enter Your Name</span>
+         </div>
+
+         <div class="form-group">
+            <label>PINCODE <span>*</span></label>
+            <input type="text" class="form-control" name="managerPincode" [(ngModel)]="manager.managerPincode" placeholder="Enter pincode" required #pin="ngModel" />
+            <span class="help-block" *ngIf="!pin.valid && pin.touched">Please Enter Your Pincode</span>
+         </div>
+         <button [disabled]="!id.valid" type="submit" class="btn btn-success btn-lg">REGISTER</button>
+         <button type="reset" class="btn btn-info btn-lg" style="margin-left: 10px">RESET</button>
+      </form>
+   </div>
+   <div class="container" style="width: 50%; float:center">
+      <h1 style="text-align: center ; margin-left: -300px" >LOGIN</h1>
+      <br />
+      <form [formGroup]="loginForm" (ngSubmit)="validateManager()">
+         <div class="form-group">
+            <label>EMAIL : </label>
+            <input type="text" class="form-control" name="managerEmail" required formControlName="managerEmail" placeholder="Enter email" required />
+         </div>
+
+         <div class="form-group">
+            <label>PASSWORD : </label>
+            <input type="password" class="form-control" name="managerPassword" required formControlName="managerPassword" placeholder="Enter password" required />
+         </div>
+         <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success btn-lg">LOGIN</button>
+      </form>
+   </div>
+</div>
+
+<!-- -------------------view Feedbacks------------------------ -->
+<div class="container" style="width: 50%; float:right ; margin-left:600px;margin-top:100px" >
+   <div *ngIf="viewFeedbacks" >
+      <h1>FEEDBACKS</h1>
+      <table class="table table-bordered table-stripped table-hover table-secondary">
+         <thead class="thead-dark">
+            <tr>
+               <th style="padding-right: 5px">Feedback Id</th>
+               <th style="padding-right: 5px">Ticket Id</th>
+               <th style="padding-right: 5px">Customer Email</th>
+               <th style="padding-right: 5px">Feedback</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let feedback of feedbacks">
+               <td style="padding-right: 5px" scope="row">{{ feedback.feedbackId }}</td>
+               <td style="padding-right: 5px">{{ feedback.ticketId }}</td>
+               <td style="padding-right: 5px">{{ feedback.customerEmail }}</td>
+               <td style="padding-right: 5px">{{ feedback.feedback }}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</div>
+
+
+
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
+
+
+
+
+
+
+
+
